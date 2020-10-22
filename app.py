@@ -12,9 +12,7 @@ import botocore
 app = Flask(__name__)
 
 s3 = boto3.resource(
-    "s3",
-    aws_access_key_id=os.environ.get(AWS_ACCESS_KEY_ID),
-    aws_secret_access_key=os.environ.get(AWS_SECRET_ACCESS_KEY)
+    "s3"
     )
 
 CORS(app)
@@ -23,7 +21,7 @@ basepath = os.path.dirname(__name__)
 
 
 try:
-    s3.Bucket(os.environ.get(BUCKET_NAME)).download_file(os.environ.get(MODEL_NAME), '/tmp/Malaria_predictor.h5')
+    s3.Bucket(os.environ['BUCKET_NAME']).download_file(os.environ['MODEL_NAME'], '/tmp/Malaria_predictor.h5')
 except botocore.exceptions.ClientError as e:
     if e.response['Error']['Code'] == "404":
         print("The object does not exist.")
