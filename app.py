@@ -27,16 +27,14 @@ except botocore.exceptions.ClientError as e:
         print("The object does not exist.")
     else:
         raise
-    
-
-model = load_model('tmp/Malaria_predictor.h5')
-
 
 
 
 @app.route('/api/sema', methods=['POST'])
 def index():
     if request.method == 'POST':
+        model = load_model('Malaria_predictor.h5')
+
 
         f = request.files['file']
         uploads_path = os.path.join(basepath, 'uploads', secure_filename(f.filename))
