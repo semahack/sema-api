@@ -21,7 +21,7 @@ basepath = os.path.dirname(__name__)
 
 
 try:
-    s3.Bucket(os.environ['BUCKET_NAME']).download_file(os.environ['MODEL_NAME'], 'Malaria_predictor.h5')
+    s3.Bucket(os.environ['BUCKET_NAME']).download_file(os.environ['MODEL_NAME'], 'tmp/Malaria_predictor.h5')
 except botocore.exceptions.ClientError as e:
     if e.response['Error']['Code'] == "404":
         print("The object does not exist.")
@@ -33,7 +33,7 @@ except botocore.exceptions.ClientError as e:
 @app.route('/api/sema', methods=['POST'])
 def index():
     if request.method == 'POST':
-        model = load_model('Malaria_predictor.h5')
+        model = load_model('tmp/Malaria_predictor.h5')
 
 
         f = request.files['file']
