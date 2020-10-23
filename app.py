@@ -52,6 +52,8 @@ def index():
         try:
             pred = model.predict(pred_image)
 
+            del model
+
             for i in pred:
                 if (i[0] > i[1]):
                     result['infected'] = 1
