@@ -12,7 +12,7 @@ import botocore
 app = Flask(__name__)
 
 s3 = boto3.resource(
-    "s3"
+    "s3" 
     )
 
 CORS(app)
