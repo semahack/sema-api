@@ -1,4 +1,5 @@
 from tensorflow.keras.models import load_model
+import tensorflow.keras.backend as K
 import os
 import numpy as np
 from PIL import Image, ImageOps
@@ -35,6 +36,7 @@ def classify(cell_image):
     pred = model.predict(data)
 
     del model
+    K.clear_session()
     os.remove("Malaria_predictor.h5")
 
     return_data = { }
