@@ -16,9 +16,17 @@ basepath = os.path.dirname(__name__)
 
 
 
-@app.route('/api/classify', methods=['POST'])
+@app.route('api/classify', methods=['POST'])
 def index():
     if request.method == 'POST':
+
+        json_data = request.json()
+        print(json_data)
+        image = Image.open(base64.b64decode(json_data.image))
+        result = classify(image)
+        
+        return json.dumps(result)
+
         
       #  f = request.files['file']
      #   image = Image.open(f)
@@ -28,22 +36,23 @@ def index():
      #   return json.dumps(result)
    # return None
 
-        try:
-            if request.files['file']:
-                f = request.files['file']
-                image = Image.open(f)
-                result = classify(image)
-                return json.dumps(result)
+       # try:
+        #    if request.files['file']:
+         #       f = request.files['file']
+          #      image = Image.open(f)
+           #     result = classify(image)
+            #    return json.dumps(result)
 
-            else:
-                json_data = request.json()
-                image = Image.open(base64.b64decode(json_data.image))
-                result = classify(image)
-                return json.dumps(result)
+            #else:
+             #   json_data = request.json()
+              #  print(json_data)
+               # image = Image.open(base64.b64decode(json_data.image))
+               # result = classify(image)
+               # return json.dumps(result)
 
-        except Exception as e:
-            result = {"error!": e}
-        return json.dumps(result)
+        #except Exception as e:
+         #   result = {"error!": e}
+        #return json.dumps(result)
     return None
 
 
